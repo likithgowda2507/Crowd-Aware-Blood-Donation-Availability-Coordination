@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Coordination Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="images/logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
+                <h1>BloodConnect</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="login.html" class="btn-primary">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Save Lives Through Smart Blood Donation</h1>
+                <p class="hero-subtitle">Connecting donors, blood banks, and hospitals for efficient blood availability management</p>
+                <div class="hero-buttons">
+                    <a href="register.html" class="btn-primary">Register Now</a>
+                    <a href="#about" class="btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="blood-drop-animation">
+                    <div class="drop"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stat-item">
+                <h3 class="stat-number">10K+</h3>
+                <p>Registered Donors</p>
+            </div>
+            <div class="stat-item">
+                <h3 class="stat-number">500+</h3>
+                <p>Blood Banks</p>
+            </div>
+            <div class="stat-item">
+                <h3 class="stat-number">1000+</h3>
+                <p>Hospitals Connected</p>
+            </div>
+            <div class="stat-item">
+                <h3 class="stat-number">50K+</h3>
+                <p>Lives Saved</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About BloodConnect</h2>
+            <p class="section-subtitle">Revolutionizing blood donation management with technology</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>BloodConnect is a comprehensive digital platform designed to address the critical challenges in blood donation and distribution. We bridge the gap between willing donors, blood banks, and hospitals in need.</p>
+                    <p>Our AI-powered system predicts blood shortages, coordinates donation camps, and ensures timely availability of blood when it matters most.</p>
+                </div>
+                <div class="about-image">
+                    <div class="placeholder-image">🩸</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Platform Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Slot Booking</h3>
+                    <p>Donors can book time slots at donation camps to avoid overcrowding</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-Time Tracking</h3>
+                    <p>Live blood stock monitoring across all connected blood banks</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI Predictions</h3>
+                    <p>Smart forecasting of blood demand and shortage detection</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Smart Alerts</h3>
+                    <p>Automatic notifications to eligible donors during shortages</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏥</div>
+                    <h3>Hospital Requests</h3>
+                    <p>Digital blood request system for quick fulfillment</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Location Services</h3>
+                    <p>Find nearest blood banks and donation camps easily</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Roles Section -->
+    <section class="roles">
+        <div class="container">
+            <h2 class="section-title">Join as</h2>
+            <div class="roles-grid">
+                <div class="role-card">
+                    <div class="role-icon">👤</div>
+                    <h3>Donor</h3>
+                    <p>Register to donate blood, book slots at camps, and track your donation history</p>
+                    <a href="register.html?role=donor" class="btn-secondary">Register as Donor</a>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon">🏦</div>
+                    <h3>Blood Bank</h3>
+                    <p>Manage blood inventory, organize camps, and coordinate with hospitals</p>
+                    <a href="register.html?role=bank" class="btn-secondary">Register as Blood Bank</a>
+                </div>
+                <div class="role-card">
+                    <div class="role-icon">🏥</div>
+                    <h3>Hospital</h3>
+                    <p>Request blood units, check availability, and manage emergency requirements</p>
+                    <a href="register.html?role=hospital" class="btn-secondary">Register as Hospital</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <h4>Email</h4>
+                            <p>support@bloodconnect.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 1800-XXX-XXXX</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Healthcare Avenue, Medical District</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BloodConnect</h3>
+                    <p>Saving lives through smart coordination</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BloodConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

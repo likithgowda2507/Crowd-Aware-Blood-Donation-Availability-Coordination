@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard - BloodConnect</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>BloodConnect</h2>
+                <span class="user-role">Donor</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" data-section="overview">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+                <a href="#profile" class="nav-item" data-section="profile">
+                    <span class="icon">👤</span>
+                    My Profile
+                </a>
+                <a href="#donation-history" class="nav-item" data-section="donation-history">
+                    <span class="icon">📜</span>
+                    Donation History
+                </a>
+                <a href="#camps" class="nav-item" data-section="camps">
+                    <span class="icon">🏕️</span>
+                    Nearby Camps
+                </a>
+                <a href="#book-slot" class="nav-item" data-section="book-slot">
+                    <span class="icon">📅</span>
+                    Book Slot
+                </a>
+                <a href="#appointments" class="nav-item" data-section="appointments">
+                    <span class="icon">📋</span>
+                    My Appointments
+                </a>
+                <a href="#upload-report" class="nav-item" data-section="upload-report">
+                    <span class="icon">📁</span>
+                    Upload Report
+                </a>
+                <a href="#notifications" class="nav-item" data-section="notifications">
+                    <span class="icon">🔔</span>
+                    Notifications
+                    <span class="badge">3</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn">
+                    <span class="icon">🚪</span>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <button class="menu-toggle">☰</button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <img src="images/user-avatar.png" alt="Profile"
+                            onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><circle cx=%2220%22 cy=%2220%22 r=%2220%22 fill=%22%23dc3545%22/><text x=%2220%22 y=%2226%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2218%22 font-family=%22Arial%22>D</text></svg>'">
+                        <div>
+                            <span class="user-name">Loading...</span>
+                            <span class="user-blood">O+</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Stats loaded dynamically -->
+                    <div class="loading-spinner">Loading stats...</div>
+                </div>
+
+                <div class="dashboard-widgets">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3>Eligibility Status</h3>
+                        </div>
+                        <div class="widget-content" id="eligibilityWidget">
+                            <div class="loading-spinner">Loading eligibility...</div>
+                        </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3>Upcoming Camps Near You</h3>
+                            <a href="#camps" class="view-all">View All</a>
+                        </div>
+                        <div class="widget-content">
+                            <div class="camp-list" id="dashboardCampList">
+                                <p>Loading camps...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-widgets">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3>Donation Impact</h3>
+                        </div>
+                        <div class="widget-content">
+                            <div class="impact-visualization" id="yieldImpact">
+                                <p class="text-muted">Donate to see your impact!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3>Recent Notifications</h3>
+                            <a href="#notifications" class="view-all">View All</a>
+                        </div>
+                        <div class="widget-content">
+                            <div class="notification-list" id="dashboardNotifications">
+                                <p>No new notifications</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="content-section">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <h2>My Profile</h2>
+                        <button class="btn-primary" id="editProfileBtn">Edit Profile</button>
+                    </div>
+                    <form id="profileForm" class="profile-form">
+                        <div class="profile-photo-section">
+                            <div class="profile-photo">
+                                <img src="images/user-avatar.png" alt="Profile" id="profileImage"
+                                    onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><circle cx=%2260%22 cy=%2260%22 r=%2260%22 fill=%22%23dc3545%22/><text x=%2260%22 y=%2275%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2250%22 font-family=%22Arial%22>D</text></svg>'">
+                            </div>
+                            <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+                            <button type="button" class="btn-secondary btn-sm" id="changePhotoBtn">Change Photo</button>
+                        </div>
+
+                        <div class="form-sections">
+                            <div class="form-section">
+                                <h3>Personal Information</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" data-field="username" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Age</label>
+                                        <input type="number" value="28" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <input type="text" value="Male" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Blood Group</label>
+                                        <input type="text" value="O+" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Contact Information</h3>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" data-field="email" value="" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" value="9876543210" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea disabled rows="3">123 Main Street, Pollachi, Tamil Nadu, 642001</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Health Information</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Weight (kg)</label>
+                                        <input type="number" value="65" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Donation Date</label>
+                                        <input type="date" value="2025-10-05" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Health Status</label>
+                                    <input type="text" value="Good" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="display: none;">
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                            <button type="button" class="btn-secondary" id="cancelEditBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Donation History Section -->
+            <section id="donation-history" class="content-section">
+                <div class="history-container">
+                    <h2>Donation History</h2>
+                    <div class="history-stats" id="historyStats">
+                        <!-- Loaded dynamically -->
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Blood Bank</th>
+                                    <th>Location</th>
+                                    <th>Quantity</th>
+                                    <th>Certificate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="donationHistoryBody">
+                                <tr>
+                                    <td colspan="5">Loading history...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nearby Camps Section -->
+            <section id="camps" class="content-section">
+                <div class="camps-container">
+                    <div class="section-header">
+                        <h2>Nearby Blood Donation Camps</h2>
+                        <div class="filters">
+                            <input type="text" placeholder="Search camps..." class="search-input">
+                            <select class="filter-select">
+                                <option>All Dates</option>
+                                <option>This Week</option>
+                                <option>This Month</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Map Container -->
+                    <div class="map-container">
+                        <div id="campMap" class="map-placeholder">
+                            <p>🗺️ Interactive Map<br>Showing camps near Pollachi, Tamil Nadu</p>
+                        </div>
+                    </div>
+
+                    <!-- Camps List -->
+                    <div class="camps-grid" id="allCampsGrid">
+                        <p>Loading camps...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Book Slot Section -->
+            <section id="book-slot" class="content-section">
+                <div class="booking-container">
+                    <h2>Book Donation Slot</h2>
+                    <form id="bookingForm" class="booking-form">
+                        <div class="form-step active" data-step="1">
+                            <h3>Select Camp</h3>
+                            <div class="camp-selection" id="bookingCampList">
+                                <p>Loading camps...</p>
+                            </div>
+                            <button type="button" class="btn-primary" onclick="nextStep(2)">Next</button>
+                        </div>
+
+                        <div class="form-step" data-step="2">
+                            <h3>Select Time Slot</h3>
+                            <div class="time-slots" id="bookingTimeSlots">
+                                <label class="time-slot">
+                                    <input type="radio" name="time" value="09:00" required>
+                                    <span>9:00 AM</span>
+                                </label>
+                                <label class="time-slot">
+                                    <input type="radio" name="time" value="10:00">
+                                    <span>10:00 AM</span>
+                                </label>
+                                <label class="time-slot">
+                                    <input type="radio" name="time" value="11:00">
+                                    <span>11:00 AM</span>
+                                </label>
+                                <label class="time-slot">
+                                    <input type="radio" name="time" value="12:00">
+                                    <span>12:00 PM</span>
+                                </label>
+                                <label class="time-slot">
+                                    <input type="radio" name="time" value="14:00">
+                                    <span>2:00 PM</span>
+                                </label>
+                                <label class="time-slot">
+                                    <input type="radio" name="time" value="15:00">
+                                    <span>3:00 PM</span>
+                                </label>
+                                <label class="time-slot">
+                                    <input type="radio" name="time" value="16:00">
+                                    <span>4:00 PM</span>
+                                </label>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" onclick="prevStep(1)">Back</button>
+                                <button type="button" class="btn-primary" onclick="nextStep(3)">Next</button>
+                            </div>
+                        </div>
+
+                        <div class="form-step" data-step="3">
+                            <h3>Confirm Booking</h3>
+                            <div class="booking-summary">
+                                <div class="summary-item">
+                                    <span class="summary-label">Camp:</span>
+                                    <span class="summary-value" id="summarycamp">Selected Camp</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Date:</span>
+                                    <span class="summary-value" id="summaryDate">Date</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Time:</span>
+                                    <span class="summary-value" id="summaryTime">Time</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" required>
+                                    I confirm that I am eligible to donate blood and have no health restrictions
+                                </label>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" onclick="prevStep(2)">Back</button>
+                                <button type="submit" class="btn-primary">Confirm Booking</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Appointments Section -->
+            <section id="appointments" class="content-section">
+                <div class="appointments-container">
+                    <h2>My Appointments</h2>
+                    <div class="appointments-tabs">
+                        <button class="tab-btn active" data-tab="upcoming">Upcoming</button>
+                        <button class="tab-btn" data-tab="past">Past</button>
+                    </div>
+
+                    <div class="tab-content active" id="upcoming">
+                        <div class="appointments-list" id="upcomingAppointmentsList">
+                            <p>Loading appointments...</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="past">
+                        <div class="appointments-list" id="pastAppointmentsList">
+                            <p>No past appointments found.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Report Section -->
+            <section id="upload-report" class="content-section">
+                <div class="appointments-container">
+                    <h2>Upload Blood Report</h2>
+                    <div class="report-upload-card"
+                        style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto;">
+                        <p style="margin-bottom: 1.5rem; color: #666;">Upload your blood test report for verification by
+                            the admin.</p>
+
+                        <form id="uploadReportForm">
+                            <div class="form-group">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Select Report
+                                    (PDF/Image)</label>
+                                <input type="file" id="reportFile" name="report" accept=".pdf,.jpg,.jpeg,.png" required
+                                    style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 1rem;">
+                            </div>
+                            <button type="submit" class="btn-primary" style="width: 100%;">Upload Report</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notifications Section -->
+            <section id="notifications" class="content-section">
+                <div class="notifications-container">
+                    <div class="section-header">
+                        <h2>Notifications</h2>
+                        <button class="btn-secondary btn-sm" id="markAllReadBtn">Mark All as Read</button>
+                    </div>
+                    <div class="notifications-list" id="notificationsList">
+                        <!-- Notifications will be loaded here dynamically -->
+                        <div class="loading-spinner">Loading notifications...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/dashboard-common.js"></script>
+    <script src="js/donor-dashboard.js"></script>
+</body>
+
+</html>

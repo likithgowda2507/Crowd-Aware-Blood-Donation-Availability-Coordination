@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BloodConnect</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        /* Admin specific styles */
+        .report-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .report-info h4 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .report-meta {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .status-badge.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: #d9534f;
+            border-bottom-color: #d9534f;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .filter-select {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .tabs .badge {
+            background: #eee;
+            color: #333;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .tab-btn.active .badge {
+            background: #d9534f;
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 0;
+            border-radius: 8px;
+            width: 50%;
+            max-width: 600px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        .close-modal {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .detail-row {
+            margin-bottom: 1rem;
+            display: flex;
+            border-bottom: 1px solid #f9f9f9;
+            padding-bottom: 0.5rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            width: 150px;
+            color: #555;
+        }
+
+        .detail-value {
+            flex: 1;
+            color: #333;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            background: #fcfcfc;
+            border-radius: 0 0 8px 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>BloodConnect</h2>
+                <span class="user-role">Administrator</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+                <a href="#verification" class="nav-item" data-section="verification">
+                    <span class="icon">✓</span>
+                    Verification
+                </a>
+                <a href="#requests" class="nav-item" data-section="requests">
+                    <span class="icon">🚑</span>
+                    Blood Requests
+                </a>
+                <a href="#users" class="nav-item" data-section="users">
+                    <span class="icon">👥</span>
+                    User Management
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logoutBtn" class="logout-btn">
+                    <span class="icon">🚪</span>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <button class="menu-toggle">☰</button>
+                    <h1 id="page-title">Admin Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn-primary" id="runPredictionBtn"
+                        style="margin-right: 15px; background: #9b59b6; border-color: #8e44ad;">
+                        <span class="icon">🔮</span> AI Analysis
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-avatar"
+                            style="background: #333; color: white; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%;">
+                            A</div>
+                        <div>
+                            <span class="user-name">System Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Overview -->
+            <section id="dashboard" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📄</div>
+                        <div class="stat-details">
+                            <h3>Pending Reports</h3>
+                            <p class="stat-number" id="pendingCount">Loading...</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-details">
+                            <h3>Total Donors</h3>
+                            <p class="stat-number" id="totalDonorsCount">--</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Verification Section -->
+            <section id="verification" class="content-section">
+                <div class="card-header">
+                    <h2>Verification Requests</h2>
+                    <select id="verificationFilter" class="filter-select">
+                        <option value="all">All Status</option>
+                        <option value="pending" selected>Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="reportsTab">
+                        Donors <span id="donorsCount" class="badge" style="display:none">0</span>
+                    </button>
+                    <button class="tab-btn" data-tab="hospitalsTab">
+                        Hospitals <span id="hospitalsCount" class="badge" style="display:none">0</span>
+                    </button>
+                    <button class="tab-btn" data-tab="banksTab">
+                        Blood Banks <span id="banksCount" class="badge" style="display:none">0</span>
+                    </button>
+                </div>
+
+                <!-- Donor Reports Tab -->
+                <div id="reportsTab" class="tab-content active">
+                    <div class="section-headers"
+                        style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <h3>Donor Registrations</h3>
+                        <button class="btn-secondary" onclick="loadReports()">Refresh List</button>
+                    </div>
+                    <div id="reportsList" class="reports-container">
+                        <p>Loading reports...</p>
+                    </div>
+                </div>
+
+                <!-- Hospitals Tab -->
+                <div id="hospitalsTab" class="tab-content">
+                    <div class="section-headers"
+                        style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <h3>Hospital Registrations</h3>
+                        <button class="btn-secondary" onclick="loadUsers('hospital', 'hospitalsList')">Refresh
+                            List</button>
+                    </div>
+                    <div id="hospitalsList" class="reports-container">
+                        <p>Loading hospitals...</p>
+                    </div>
+                </div>
+
+                <!-- Blood Banks Tab -->
+                <div id="banksTab" class="tab-content">
+                    <div class="section-headers"
+                        style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <h3>Blood Bank Registrations</h3>
+                        <button class="btn-secondary" onclick="loadUsers('blood_bank', 'banksList')">Refresh
+                            List</button>
+                    </div>
+                    <div id="banksList" class="reports-container">
+                        <p>Loading blood banks...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blood Requests Section -->
+            <section id="requests" class="content-section">
+                <div class="section-header">
+                    <h2>Hospital Blood Requests</h2>
+                    <button class="btn-secondary" onclick="loadBloodRequests()">Refresh List</button>
+                </div>
+
+                <div id="bloodRequestsList" class="reports-container">
+                    <!-- Requests will be populated here -->
+                    <p>Loading requests...</p>
+                </div>
+            </section>
+
+            <!-- Users Section (Placeholder) -->
+            <section id="users" class="content-section">
+                <h2>User Management</h2>
+                <p>User management feature coming soon.</p>
+            </section>
+
+        </main>
+        <!-- Verification Details Modal -->
+        <div id="detailsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle">Verification Details</h2>
+                    <span class="close-modal" onclick="closeModal()">&times;</span>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Details will be populated here -->
+                </div>
+                <div class="modal-footer" id="modalFooter">
+                    <!-- Actions will be populated here -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/dashboard-common.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+</body>
+
+</html>

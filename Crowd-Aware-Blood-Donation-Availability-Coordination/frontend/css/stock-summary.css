@@ -1,0 +1,131 @@
+/* ===========================
+   STOCK SUMMARY SECTION
+   =========================== */
+.stock-overview-section {
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.stock-overview-section h3 {
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-size-lg);
+    color: var(--text-primary);
+}
+
+.stock-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.stock-summary-card {
+    background-color: var(--white);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stock-summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.stock-summary-card .blood-group-label {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.stock-summary-card .stock-count {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.stock-summary-card .stock-unit {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stock-summary-card .stock-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+/* Stock Status Colors */
+.stock-summary-card.good {
+    border-color: var(--success-color);
+}
+
+.stock-summary-card.good .stock-count {
+    color: var(--success-color);
+}
+
+.stock-summary-card.good .stock-status {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: var(--success-color);
+}
+
+.stock-summary-card.low {
+    border-color: var(--warning-color);
+}
+
+.stock-summary-card.low .stock-count {
+    color: var(--warning-color);
+}
+
+.stock-summary-card.low .stock-status {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: var(--warning-color);
+}
+
+.stock-summary-card.critical {
+    border-color: var(--danger-color);
+}
+
+.stock-summary-card.critical .stock-count {
+    color: var(--danger-color);
+}
+
+.stock-summary-card.critical .stock-status {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--danger-color);
+}
+
+.stock-summary-card.empty {
+    border-color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.stock-summary-card.empty .stock-count {
+    color: var(--text-secondary);
+}
+
+.stock-summary-card.empty .stock-status {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .stock-summary-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+    
+    .stock-summary-card .blood-group-label {
+        font-size: var(--font-size-xl);
+    }
+    
+    .stock-summary-card .stock-count {
+        font-size: 2rem;
+    }
+}

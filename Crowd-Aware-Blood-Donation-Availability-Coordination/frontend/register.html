@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BloodConnect</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html">BloodConnect</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html" class="btn-primary">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Registration Section -->
+    <section class="registration-section">
+        <div class="container">
+            <div class="registration-container">
+                <h2>Create Your Account</h2>
+                <p class="subtitle">Join BloodConnect and help save lives</p>
+
+                <!-- Role Selection -->
+                <div class="role-selector">
+                    <button class="role-btn active" data-role="donor">
+                        <span class="role-icon">👤</span>
+                        Donor
+                    </button>
+                    <button class="role-btn" data-role="bank">
+                        <span class="role-icon">🏦</span>
+                        Blood Bank
+                    </button>
+                    <button class="role-btn" data-role="hospital">
+                        <span class="role-icon">🏥</span>
+                        Hospital
+                    </button>
+                </div>
+
+                <!-- Registration Forms -->
+                <!-- Donor Registration Form -->
+                <form id="donorForm" class="registration-form active" novalidate>
+                    <input type="hidden" name="role" value="donor">
+
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donor-name">Full Name *</label>
+                                <input type="text" id="donor-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="donor-age">Age *</label>
+                                <input type="number" id="donor-age" name="age" min="18" max="65" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donor-gender">Gender *</label>
+                                <select id="donor-gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="donor-blood-group">Blood Group *</label>
+                                <select id="donor-blood-group" name="blood_group" required>
+                                    <option value="">Select Blood Group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Contact Information</h3>
+                        <div class="form-group">
+                            <label for="donor-email">Email *</label>
+                            <input type="email" id="donor-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-phone">Phone Number *</label>
+                            <input type="tel" id="donor-phone" name="phone" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-address">Address *</label>
+                            <textarea id="donor-address" name="address" rows="3" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donor-city">City *</label>
+                                <input type="text" id="donor-city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="donor-pincode">Pincode *</label>
+                                <input type="text" id="donor-pincode" name="pincode" pattern="[0-9]{6}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Health Information</h3>
+                        <div class="form-group">
+                            <label for="donor-weight">Weight (kg) *</label>
+                            <input type="number" id="donor-weight" name="weight" min="45" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-last-donation">Last Donation Date</label>
+                            <input type="date" id="donor-last-donation" name="last_donation_date">
+                        </div>
+                        <div class="form-group">
+                            <label>Health Status *</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="health_status" value="excellent" required>
+                                    Excellent
+                                </label>
+                                <label>
+                                    <input type="radio" name="health_status" value="good" required>
+                                    Good
+                                </label>
+                                <label>
+                                    <input type="radio" name="health_status" value="fair" required>
+                                    Fair
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Medical Conditions</label>
+                            <div class="checkbox-group">
+                                <label>
+                                    <input type="checkbox" name="medical_conditions" value="diabetes">
+                                    Diabetes
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="medical_conditions" value="hypertension">
+                                    Hypertension
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="medical_conditions" value="none">
+                                    None
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Donation Preference *</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="donation_type" value="Free" checked>
+                                    Free Donation
+                                </label>
+                                <label>
+                                    <input type="radio" name="donation_type" value="Paid">
+                                    Paid Donation
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-report">Upload Blood Report (PDF/Image) *</label>
+                            <input type="file" id="donor-report" name="report" accept=".pdf,.jpg,.jpeg,.png">
+                            <small class="form-text text-muted">Please upload your latest blood test report for
+                                verification.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Account Security</h3>
+                        <div class="form-group">
+                            <label for="donor-password">Password *</label>
+                            <input type="password" id="donor-password" name="password" minlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-confirm-password">Confirm Password *</label>
+                            <input type="password" id="donor-confirm-password" name="confirm_password" minlength="8"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block">Register as Donor</button>
+                </form>
+
+                <!-- Blood Bank Registration Form -->
+                <form id="bankForm" class="registration-form" novalidate>
+                    <input type="hidden" name="role" value="bank">
+
+                    <div class="form-section">
+                        <h3>Blood Bank Information</h3>
+                        <div class="form-group">
+                            <label for="bank-name">Blood Bank Name *</label>
+                            <input type="text" id="bank-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bank-license">License ID *</label>
+                            <input type="text" id="bank-license" name="license_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bank-registration">Registration Number *</label>
+                            <input type="text" id="bank-registration" name="registration_number" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Contact Information</h3>
+                        <div class="form-group">
+                            <label for="bank-email">Email *</label>
+                            <input type="email" id="bank-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bank-phone">Phone Number *</label>
+                            <input type="tel" id="bank-phone" name="phone" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bank-contact-person">Contact Person Name *</label>
+                            <input type="text" id="bank-contact-person" name="contact_person" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Location Information</h3>
+                        <div class="form-group">
+                            <label for="bank-address">Address *</label>
+                            <textarea id="bank-address" name="address" rows="3" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bank-city">City *</label>
+                                <input type="text" id="bank-city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bank-state">State *</label>
+                                <input type="text" id="bank-state" name="state" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bank-pincode">Pincode *</label>
+                                <input type="text" id="bank-pincode" name="pincode" pattern="[0-9]{6}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bank-country">Country *</label>
+                                <input type="text" id="bank-country" name="country" value="India" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Operational Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bank-capacity">Storage Capacity (units) *</label>
+                                <input type="number" id="bank-capacity" name="capacity" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="bank-operating-hours">Operating Hours *</label>
+                                <input type="text" id="bank-operating-hours" name="operating_hours"
+                                    placeholder="e.g., 9 AM - 6 PM" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Account Security</h3>
+                        <div class="form-group">
+                            <label for="bank-password">Password *</label>
+                            <input type="password" id="bank-password" name="password" minlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bank-confirm-password">Confirm Password *</label>
+                            <input type="password" id="bank-confirm-password" name="confirm_password" minlength="8"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block">Register Blood Bank</button>
+                </form>
+
+                <!-- Hospital Registration Form -->
+                <form id="hospitalForm" class="registration-form" novalidate>
+                    <input type="hidden" name="role" value="hospital">
+
+                    <div class="form-section">
+                        <h3>Hospital Information</h3>
+                        <div class="form-group">
+                            <label for="hospital-name">Hospital Name *</label>
+                            <input type="text" id="hospital-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospital-registration">Registration ID *</label>
+                            <input type="text" id="hospital-registration" name="registration_id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospital-type">Hospital Type *</label>
+                            <select id="hospital-type" name="hospital_type" required>
+                                <option value="">Select Type</option>
+                                <option value="government">Government</option>
+                                <option value="private">Private</option>
+                                <option value="trust">Trust</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Contact Information</h3>
+                        <div class="form-group">
+                            <label for="hospital-email">Email *</label>
+                            <input type="email" id="hospital-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospital-phone">Phone Number *</label>
+                            <input type="tel" id="hospital-phone" name="phone" pattern="[0-9]{10}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospital-emergency">Emergency Contact *</label>
+                            <input type="tel" id="hospital-emergency" name="emergency_contact" pattern="[0-9]{10}"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospital-contact-person">Contact Person Name *</label>
+                            <input type="text" id="hospital-contact-person" name="contact_person" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Location Information</h3>
+                        <div class="form-group">
+                            <label for="hospital-address">Address *</label>
+                            <textarea id="hospital-address" name="address" rows="3" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hospital-city">City *</label>
+                                <input type="text" id="hospital-city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="hospital-state">State *</label>
+                                <input type="text" id="hospital-state" name="state" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hospital-pincode">Pincode *</label>
+                                <input type="text" id="hospital-pincode" name="pincode" pattern="[0-9]{6}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="hospital-country">Country *</label>
+                                <input type="text" id="hospital-country" name="country" value="India" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Facility Details</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hospital-beds">Number of Beds *</label>
+                                <input type="number" id="hospital-beds" name="number_of_beds" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="hospital-specializations">Specializations</label>
+                                <input type="text" id="hospital-specializations" name="specializations"
+                                    placeholder="e.g., Cardiology, Neurology">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Account Security</h3>
+                        <div class="form-group">
+                            <label for="hospital-password">Password *</label>
+                            <input type="password" id="hospital-password" name="password" minlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospital-confirm-password">Confirm Password *</label>
+                            <input type="password" id="hospital-confirm-password" name="confirm_password" minlength="8"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block">Register Hospital</button>
+                </form>
+
+                <p class="login-link">Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 BloodConnect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/registration.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Dashboard - BloodConnect</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>BloodConnect</h2>
+                <span class="user-role">Hospital</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-item active" data-section="overview">
+                    <span class="icon">📊</span>
+                    Dashboard
+                </a>
+                <a href="#create-request" class="nav-item" data-section="create-request">
+                    <span class="icon">➕</span>
+                    New Blood Request
+                </a>
+                <a href="#requests" class="nav-item" data-section="requests">
+                    <span class="icon">📋</span>
+                    My Requests
+                </a>
+                <a href="#stock-availability" class="nav-item" data-section="stock-availability">
+                    <span class="icon">🩸</span>
+                    Stock Availability
+                </a>
+                <a href="#blood-banks" class="nav-item" data-section="blood-banks">
+                    <span class="icon">🏦</span>
+                    Blood Banks
+                </a>
+                <a href="#history" class="nav-item" data-section="history">
+                    <span class="icon">📜</span>
+                    Request History
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn">
+                    <span class="icon">🚪</span>
+                    Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <button class="menu-toggle">☰</button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button class="btn-danger" id="emergencyRequestBtn">🚨 Emergency Request</button>
+                    <div class="user-profile">
+                        <img src="images/hospital-logo.png" alt="Hospital Logo"
+                            onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><rect width=%2240%22 height=%2240%22 fill=%22%23dc3545%22/><text x=%2220%22 y=%2226%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2218%22 font-family=%22Arial%22>H</text></svg>'">
+                        <div>
+                            <span class="user-name">City Hospital</span>
+                            <span class="user-blood">Pollachi</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-details">
+                            <h3>Active Requests</h3>
+                            <p class="stat-number">--</p>
+                            <span class="stat-change">2 pending approval</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-details">
+                            <h3>Fulfilled This Month</h3>
+                            <p class="stat-number">--</p>
+                            <span class="stat-change positive">↑ 8% from last month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🩸</div>
+                        <div class="stat-details">
+                            <h3>Units Received</h3>
+                            <p class="stat-number">--</p>
+                            <span class="stat-change">This month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-details">
+                            <h3>Avg Response Time</h3>
+                            <p class="stat-number">--</p>
+                            <span class="stat-change positive">↓ 15% faster</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-widgets">
+                    <!-- Active Requests -->
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3>Active Blood Requests</h3>
+                            <a href="#requests" class="view-all">View All</a>
+                        </div>
+                        <div class="widget-content">
+                            <div class="hospital-requests-list">
+                                <!-- Dynamic Content Loaded from Database -->
+                                <p>Loading active requests...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stock Check -->
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3>Quick Stock Check</h3>
+                            <a href="#stock-availability" class="view-all">View All Banks</a>
+                        </div>
+                        <div class="widget-content">
+                            <div class="quick-stock-form">
+                                <div class="form-group">
+                                    <label>Blood Group</label>
+                                    <select id="quickBloodGroup" class="form-control">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <button class="btn-primary btn-block" id="checkStockBtn">Check Availability</button>
+                            </div>
+                            <div id="stockResults" class="stock-results" style="display: none;">
+                                <div class="stock-result-item">
+                                    <div class="bank-info">
+                                        <h5>City Blood Bank</h5>
+                                        <p>2.5 km away</p>
+                                    </div>
+                                    <div class="stock-info">
+                                        <span class="stock-available">312 units</span>
+                                    </div>
+                                </div>
+                                <div class="stock-result-item">
+                                    <div class="bank-info">
+                                        <h5>District Blood Bank</h5>
+                                        <p>15 km away</p>
+                                    </div>
+                                    <div class="stock-info">
+                                        <span class="stock-available">150 units</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nearby Blood Banks -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3>Nearby Blood Banks</h3>
+                        <a href="#blood-banks" class="view-all">View All</a>
+                    </div>
+                    <div class="widget-content">
+                        <div class="blood-banks-grid">
+                            <div class="blood-bank-mini-card">
+                                <h4>City Blood Bank</h4>
+                                <p>📍 2.5 km away</p>
+                                <p>📞 +91 98765-43210</p>
+                                <p>⏰ 24/7 Available</p>
+                                <button class="btn-secondary btn-sm btn-block">View Stock</button>
+                            </div>
+                            <div class="blood-bank-mini-card">
+                                <h4>District Blood Bank</h4>
+                                <p>📍 15 km away</p>
+                                <p>📞 +91 98765-43211</p>
+                                <p>⏰ 9 AM - 6 PM</p>
+                                <button class="btn-secondary btn-sm btn-block">View Stock</button>
+                            </div>
+                            <div class="blood-bank-mini-card">
+                                <h4>Community Blood Center</h4>
+                                <p>📍 18 km away</p>
+                                <p>📞 +91 98765-43212</p>
+                                <p>⏰ 8 AM - 8 PM</p>
+                                <button class="btn-secondary btn-sm btn-block">View Stock</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Create Request Section -->
+            <section id="create-request" class="content-section">
+                <div class="create-request-container">
+                    <h2>Create Blood Request</h2>
+                    <form id="bloodRequestForm" class="blood-request-form">
+                        <div class="form-section">
+                            <h3>Patient Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Patient ID *</label>
+                                    <input type="text" name="patient_id" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Patient Name *</label>
+                                    <input type="text" name="patient_name" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Age *</label>
+                                    <input type="number" name="age" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender *</label>
+                                    <select name="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Blood Requirement</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Blood Group Required *</label>
+                                    <select name="blood_group" required id="bloodGroupSelect">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Number of Units *</label>
+                                    <input type="number" name="units" min="1" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Component Type *</label>
+                                <select name="component_type" required>
+                                    <option value="whole_blood">Whole Blood</option>
+                                    <option value="packed_rbc">Packed RBC</option>
+                                    <option value="platelets">Platelets</option>
+                                    <option value="plasma">Plasma</option>
+                                    <option value="cryo">Cryoprecipitate</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Request Details</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Priority Level *</label>
+                                    <select name="priority" required>
+                                        <option value="emergency">Emergency (Immediate)</option>
+                                        <option value="urgent">Urgent (Within 24 hours)</option>
+                                        <option value="routine">Routine (Within 48 hours)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Required By *</label>
+                                    <input type="datetime-local" name="required_by" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Purpose/Indication *</label>
+                                <select name="purpose" required>
+                                    <option value="">Select Purpose</option>
+                                    <option value="surgery">Surgery</option>
+                                    <option value="accident">Accident/Trauma</option>
+                                    <option value="anemia">Anemia</option>
+                                    <option value="cancer">Cancer Treatment</option>
+                                    <option value="pregnancy">Pregnancy Complications</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Additional Notes</label>
+                                <textarea name="notes" rows="3"
+                                    placeholder="Any special requirements or additional information"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Select Blood Bank *</h3>
+                            <div class="blood-bank-selection" id="bloodBankSelectionContainer">
+                                <p>Loading blood banks...</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="terms" required>
+                                I confirm that all the information provided is accurate and the blood is required for
+                                the stated purpose
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Submit Request</button>
+                            <button type="button" class="btn-secondary">Save as Draft</button>
+                            <button type="reset" class="btn-secondary">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- My Requests Section -->
+            <section id="requests" class="content-section">
+                <div class="requests-container">
+                    <h2>My Blood Requests</h2>
+                    <div class="requests-tabs">
+                        <button class="tab-btn active" data-tab="active">Active (3)</button>
+                        <button class="tab-btn" data-tab="completed">Completed</button>
+                        <button class="tab-btn" data-tab="cancelled">Cancelled</button>
+                    </div>
+
+                    <div class="tab-content active" id="active">
+                        <div class="hospital-requests-detailed" id="allRequestsContainer">
+                            <div class="request-detailed-card emergency-border">
+                                <div class="request-card-header">
+                                    <div>
+                                        <h3>REQ-2026-001</h3>
+                                        <span class="priority-badge emergency">Emergency</span>
+                                        <span class="status-badge pending">Pending Approval</span>
+                                    </div>
+                                    <div class="request-time">
+                                        <span>Submitted: 30 minutes ago</span>
+                                    </div>
+                                </div>
+                                <div class="request-card-body">
+                                    <div class="detail-row">
+                                        <div class="detail-group">
+                                            <label>Patient ID:</label>
+                                            <span>PT-12345</span>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label>Patient Name:</label>
+                                            <span>John Doe</span>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label>Age/Gender:</label>
+                                            <span>45 / Male</span>
+                                        </div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-group">
+                                            <label>Blood Group:</label>
+                                            <span class="blood-type-large">O-</span>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label>Units Required:</label>
+                                            <span class="units-large">4</span>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label>Component:</label>
+                                            <span>Packed RBC</span>
+                                        </div>
+                                    </div>
+                                    <div class="detail-row">
+                                        <div class="detail-group">
+                                            <label>Purpose:</label>
+                                            <span>Emergency Surgery</span>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label>Required By:</label>
+                                            <span>Immediately</span>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label>Blood Bank:</label>
+                                            <span>City Blood Bank</span>
+                                        </div>
+                                    </div>
+                                    <div class="detail-notes">
+                                        <label>Notes:</label>
+                                        <p>Patient involved in road accident, requires immediate blood transfusion</p>
+                                    </div>
+                                </div>
+                                <div class="request-card-footer">
+                                    <button class="btn-secondary btn-sm">Track Request</button>
+                                    <button class="btn-secondary btn-sm">Contact Blood Bank</button>
+                                    <button class="btn-danger btn-sm">Cancel Request</button>
+                                </div>
+                            </div>
+
+                            <div class="request-detailed-card approved-border">
+                                <div class="request-card-header">
+                                    <div>
+                                        <h3>REQ-2026-002</h3>
+                                        <span class="priority-badge high">High Priority</span>
+                                        <span class="status-badge approved">Approved</span>
+                                    </div>
+                                    <div class="request-time">
+                                        <span>Submitted: 3 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="request-card-body">
+                                    <div class="detail-row">
+                                        <div class="detail-group">
+                                            <label>Patient ID:</label>
+                                            <span>PT-67890</span>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label>Blood Group:</label>
+                                            <span class="blood-type-large">A+</span>
+                                        </div>
+                                        <div class="detail-group">
+                                            <label>Units Approved:</label>
+                                            <span class="units-large">2</span>
+                                        </div>
+                                    </div>
+                                    <div class="approval-info">
+                                        <p><strong>Status:</strong> Blood units reserved and ready for pickup</p>
+                                        <p><strong>Bag IDs:</strong> BB-2026-0156, BB-2026-0157</p>
+                                    </div>
+                                </div>
+                                <div class="request-card-footer">
+                                    <button class="btn-primary btn-sm">Confirm Receipt</button>
+                                    <button class="btn-secondary btn-sm">View QR Codes</button>
+                                    <button class="btn-secondary btn-sm">Contact Bank</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="completed">
+                        <div class="hospital-requests-detailed">
+                            <p class="no-data">No completed requests to display</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="cancelled">
+                        <div class="hospital-requests-detailed">
+                            <p class="no-data">No cancelled requests</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stock Availability Section -->
+            <section id="stock-availability" class="content-section">
+                <div class="stock-availability-container">
+                    <h2>Blood Stock Availability</h2>
+                    <p class="subtitle">Real-time blood stock across connected blood banks</p>
+
+                    <div class="stock-filters">
+                        <select class="filter-select">
+                            <option value="">All Blood Banks</option>
+                            <option value="bank1">City Blood Bank</option>
+                            <option value="bank2">District Blood Bank</option>
+                            <option value="bank3">Community Blood Center</option>
+                        </select>
+                        <select class="filter-select">
+                            <option value="">All Blood Groups</option>
+                            <option value="A+">A+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+
+                    <div class="stock-by-bank">
+                        <div class="bank-stock-card">
+                            <div class="bank-stock-header">
+                                <h3>City Blood Bank</h3>
+                                <span class="distance">2.5 km away</span>
+                            </div>
+                            <div class="bank-stock-grid">
+                                <div class="blood-group-stock good">
+                                    <h4>A+</h4>
+                                    <p class="stock-count">245 units</p>
+                                    <span class="stock-status">Available</span>
+                                </div>
+                                <div class="blood-group-stock low">
+                                    <h4>A-</h4>
+                                    <p class="stock-count">42 units</p>
+                                    <span class="stock-status">Low Stock</span>
+                                </div>
+                                <div class="blood-group-stock good">
+                                    <h4>B+</h4>
+                                    <p class="stock-count">198 units</p>
+                                    <span class="stock-status">Available</span>
+                                </div>
+                                <div class="blood-group-stock low">
+                                    <h4>B-</h4>
+                                    <p class="stock-count">38 units</p>
+                                    <span class="stock-status">Low Stock</span>
+                                </div>
+                                <div class="blood-group-stock good">
+                                    <h4>AB+</h4>
+                                    <p class="stock-count">156 units</p>
+                                    <span class="stock-status">Available</span>
+                                </div>
+                                <div class="blood-group-stock critical">
+                                    <h4>AB-</h4>
+                                    <p class="stock-count">18 units</p>
+                                    <span class="stock-status">Critical</span>
+                                </div>
+                                <div class="blood-group-stock excellent">
+                                    <h4>O+</h4>
+                                    <p class="stock-count">312 units</p>
+                                    <span class="stock-status">Excellent</span>
+                                </div>
+                                <div class="blood-group-stock critical">
+                                    <h4>O-</h4>
+                                    <p class="stock-count">5 units</p>
+                                    <span class="stock-status">Critical</span>
+                                </div>
+                            </div>
+                            <div class="bank-stock-footer">
+                                <button class="btn-primary btn-sm">Create Request</button>
+                                <button class="btn-secondary btn-sm">Contact Bank</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blood Banks Section -->
+            <section id="blood-banks" class="content-section">
+                <div class="blood-banks-container">
+                    <h2>Connected Blood Banks</h2>
+                    <div class="blood-banks-list" id="bloodBanksGrid">
+                        <!-- Dynamic Content Loaded from Database -->
+                        <p>Loading blood banks...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section id="history" class="content-section">
+                <div class="history-container">
+                    <h2>Request History</h2>
+                    <div class="filters-bar">
+                        <input type="date" class="filter-input" placeholder="From Date">
+                        <input type="date" class="filter-input" placeholder="To Date">
+                        <select class="filter-select">
+                            <option>All Blood Groups</option>
+                        </select>
+                        <button class="btn-secondary">Export Report</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Request ID</th>
+                                    <th>Date</th>
+                                    <th>Patient ID</th>
+                                    <th>Blood Group</th>
+                                    <th>Units</th>
+                                    <th>Blood Bank</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <!-- Dynamic Content Loaded from Database -->
+                                <tr>
+                                    <td colspan="8" style="text-align:center;">Loading history...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Emergency Request Modal -->
+    <div id="emergencyModal" class="modal" style="display: none;">
+        <div class="modal-content emergency-modal">
+            <div class="modal-header">
+                <h3>🚨 Emergency Blood Request</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="emergencyForm">
+                <div class="form-group">
+                    <label>Patient ID *</label>
+                    <input type="text" id="emergencyPatientName" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Blood Group *</label>
+                        <select id="emergencyBloodGroup" required>
+                            <option value="">Select</option>
+                            <option value="O-">O-</option>
+                            <option value="O+">O+</option>
+                            <option value="A-">A-</option>
+                            <option value="A+">A+</option>
+                            <option value="B-">B-</option>
+                            <option value="B+">B+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="AB+">AB+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Units *</label>
+                        <input type="number" id="emergencyUnits" min="1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Blood Bank *</label>
+                    <select required>
+                        <option>City Blood Bank</option>
+                        <option>District Blood Bank</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Emergency Notes</label>
+                    <textarea rows="2" id="emergencyReason" placeholder="Brief description of emergency"></textarea>
+                </div>
+                <button type="submit" class="btn-danger btn-block">Submit Emergency Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/dashboard-common.js"></script>
+    <script src="js/hospital-dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BloodConnect</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1><a href="index.html">BloodConnect</a></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html" class="btn-primary">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-container">
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Login to your account</p>
+
+                <!-- Role Selection -->
+                <div class="role-selector">
+                    <button class="role-btn active" data-role="donor">
+                        <span class="role-icon">👤</span>
+                        Donor
+                    </button>
+                    <button class="role-btn" data-role="bank">
+                        <span class="role-icon">🏦</span>
+                        Blood Bank
+                    </button>
+                    <button class="role-btn" data-role="hospital">
+                        <span class="role-icon">🏥</span>
+                        Hospital
+                    </button>
+                    <button class="role-btn" data-role="admin">
+                        <span class="role-icon">🛡️</span>
+                        Admin
+                    </button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="login-form" novalidate>
+                    <input type="hidden" id="userRole" name="role" value="donor">
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember">
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block">Login</button>
+                </form>
+
+                <p class="register-link">Don't have an account? <a href="register.html">Register here</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 BloodConnect. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/login.js"></script>
+</body>
+
+</html>
